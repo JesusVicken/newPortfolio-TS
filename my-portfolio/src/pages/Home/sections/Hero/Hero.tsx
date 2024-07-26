@@ -41,20 +41,24 @@ const Hero = () => {
                             <Typography color='primary.contrastText' variant="h2" textAlign='center'>I'm a Fullstack Developer</Typography>
                             <Grid container display='flex' justifyContent='center' spacing={3} pt={3}>
                                 <Grid item xs={12} md={4} display='flex' justifyContent='center'>
-                                    <StyledButton>
-                                        <DownloadIcon />
-                                        <Typography>
-                                            Download CV
-                                        </Typography>
-                                    </StyledButton>
+                                    <a href="/JESUS_CV.pdf" download style={{ textDecoration: 'none' }}>
+                                        <StyledButton>
+                                            <DownloadIcon />
+                                            <Typography>
+                                                Download CV
+                                            </Typography>
+                                        </StyledButton>
+                                    </a>
                                 </Grid>
                                 <Grid item xs={12} md={4} display='flex' justifyContent='center'>
-                                    <StyledButton>
-                                        <EmailIcon />
-                                        <Typography>
-                                            Contact me
-                                        </Typography>
-                                    </StyledButton>
+                                    <a href="https://www.linkedin.com/in/jesus-vicken" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                                        <StyledButton>
+                                            <EmailIcon />
+                                            <Typography>
+                                                Contact me
+                                            </Typography>
+                                        </StyledButton>
+                                    </a>
                                 </Grid>
                             </Grid>
                         </Grid>

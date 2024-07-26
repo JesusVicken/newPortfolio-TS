@@ -4,7 +4,7 @@ import Hero from "./sections/Hero/Hero"
 const Home = () => {
     return (
         <>
-            <NavBar />
+            {/*<NavBar />*/}
             <Hero />
         </>
     )
