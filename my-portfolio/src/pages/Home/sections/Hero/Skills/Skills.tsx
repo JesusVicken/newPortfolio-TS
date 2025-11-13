@@ -1,11 +1,10 @@
+// Skills.tsx CORRIGIDO PARA FRAMER MOTION 11
+
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Container, Typography, Box, styled, Grid, LinearProgress, Chip, Tabs, Tab } from "@mui/material"
+import { Container, Typography, Box, styled, Grid, LinearProgress, Chip, Tabs, Tab } from "@mui/material";
 import CodeIcon from '@mui/icons-material/Code';
-import StorageIcon from '@mui/icons-material/Storage';
-import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import PsychologyIcon from '@mui/icons-material/Psychology';
-import MobileFriendlyIcon from '@mui/icons-material/MobileFriendly';
 
 const Skills = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -30,7 +29,7 @@ const Skills = () => {
                 radial-gradient(circle at 20% 80%, rgba(0, 204, 255, 0.08) 0%, transparent 50%)
             `,
         }
-    }))
+    }));
 
     const SkillCategory = styled(Box)(({ theme }) => ({
         background: 'rgba(255, 255, 255, 0.05)',
@@ -40,24 +39,14 @@ const Skills = () => {
         height: '100%',
         backdropFilter: 'blur(10px)',
         transition: 'all 0.3s ease',
-    }))
-
-    const SkillBar = styled(LinearProgress)(({ theme }) => ({
-        height: 8,
-        borderRadius: 10,
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        '& .MuiLinearProgress-bar': {
-            background: 'linear-gradient(45deg, #00ff88, #00ccff)',
-            borderRadius: 10,
-        }
-    }))
+    }));
 
     const SkillItem = styled(Box)({
         marginBottom: '24px',
         '&:last-child': {
             marginBottom: 0,
         }
-    })
+    });
 
     const skillsData = {
         frontend: [
@@ -67,33 +56,8 @@ const Skills = () => {
             { name: 'Next.js', level: 85 },
             { name: 'Material-UI', level: 92 },
             { name: 'Tailwind CSS', level: 88 }
-        ],
-        backend: [
-            { name: 'Node.js', level: 90 },
-            { name: 'Python', level: 85 },
-            { name: 'Java', level: 75 },
-            { name: 'PostgreSQL', level: 88 },
-            { name: 'MongoDB', level: 82 },
-            { name: 'Redis', level: 78 }
-        ],
-        mobile: [
-            { name: 'React Native', level: 85 },
-            { name: 'Flutter', level: 70 },
-            { name: 'iOS Development', level: 65 },
-            { name: 'Android Development', level: 68 }
         ]
-    }
-
-    const tools = [
-        'Git & GitHub',
-        'Docker',
-        'AWS',
-        'Figma',
-        'Jest',
-        'Webpack',
-        'VS Code',
-        'Postman'
-    ]
+    };
 
     const softSkills = [
         'Comunicação Eficaz',
@@ -104,48 +68,13 @@ const Skills = () => {
         'Pensamento Crítico',
         'Liderança',
         'Criatividade'
-    ]
+    ];
 
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setActiveTab(newValue);
     };
 
-    // Animations
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-                duration: 0.6
-            }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.6,
-                ease: "easeOut"
-            }
-        }
-    };
-
-    const skillBarVariants = {
-        hidden: { width: 0 },
-        visible: (level: number) => ({
-            width: `${level}%`,
-            transition: {
-                duration: 1.5,
-                ease: "easeOut",
-                delay: 0.5
-            }
-        })
-    };
-
+    // Variants corrigidos
     const categoryVariants = {
         hidden: { opacity: 0, x: -50 },
         visible: {
@@ -153,7 +82,7 @@ const Skills = () => {
             x: 0,
             transition: {
                 duration: 0.6,
-                ease: "easeOut"
+                ease: "easeOut" as any
             }
         },
         hover: {
@@ -164,6 +93,18 @@ const Skills = () => {
                 ease: [0.4, 0.0, 0.2, 1]
             }
         }
+    };
+
+    const skillBarVariants = {
+        hidden: { width: 0 },
+        visible: (level: number) => ({
+            width: `${level}%`,
+            transition: {
+                duration: 1.5,
+                ease: "easeOut" as any,
+                delay: 0.5
+            }
+        })
     };
 
     return (
@@ -178,7 +119,6 @@ const Skills = () => {
                     <Typography
                         variant="h2"
                         component="h2"
-                        gutterBottom
                         textAlign="center"
                         mb={2}
                         sx={{
@@ -196,42 +136,26 @@ const Skills = () => {
                         textAlign="center"
                         color="text.secondary"
                         mb={6}
-                        maxWidth="600px"
-                        mx="auto"
                     >
-                        Domínio completo do stack tecnológico moderno, desde o frontend até o backend e mobile
+                        Domínio completo do stack tecnológico moderno
                     </Typography>
                 </motion.div>
 
                 {/* Tabs */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                    <Box sx={{ borderBottom: 1, borderColor: 'rgba(255,255,255,0.1)', mb: 6 }}>
-                        <Tabs
-                            value={activeTab}
-                            onChange={handleTabChange}
-                            textColor="secondary"
-                            indicatorColor="secondary"
-                            centered
-                        >
-                            <Tab label="Frontend" />
-                            <Tab label="Backend" />
-                            <Tab label="Mobile" />
-                            <Tab label="Tools" />
-                        </Tabs>
-                    </Box>
-                </motion.div>
+                <Box sx={{ borderBottom: 1, borderColor: 'rgba(255,255,255,0.1)', mb: 6 }}>
+                    <Tabs
+                        value={activeTab}
+                        onChange={handleTabChange}
+                        textColor="secondary"
+                        indicatorColor="secondary"
+                        centered
+                    >
+                        <Tab label="Frontend" />
+                        <Tab label="Soft Skills" />
+                    </Tabs>
+                </Box>
 
-                <motion.div
-                    key={activeTab}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                >
+                <motion.div key={activeTab} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                     {activeTab === 0 && (
                         <Grid container spacing={4}>
                             <Grid item xs={12} md={8}>
@@ -249,25 +173,25 @@ const Skills = () => {
                                                 Frontend Development
                                             </Typography>
                                         </Box>
+
                                         {skillsData.frontend.map((skill, index) => (
                                             <SkillItem key={index}>
                                                 <Box display="flex" justifyContent="space-between" mb={1}>
-                                                    <Typography variant="h6" fontWeight="500">
+                                                    <Typography variant="h6">
                                                         {skill.name}
                                                     </Typography>
-                                                    <Typography variant="body1" color="secondary.main" fontWeight="600">
+                                                    <Typography color="secondary.main" fontWeight={600}>
                                                         {skill.level}%
                                                     </Typography>
                                                 </Box>
-                                                <Box
-                                                    sx={{
-                                                        width: '100%',
-                                                        height: 8,
-                                                        borderRadius: 10,
-                                                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                                                        overflow: 'hidden'
-                                                    }}
-                                                >
+
+                                                <Box sx={{
+                                                    width: '100%',
+                                                    height: 8,
+                                                    borderRadius: 10,
+                                                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                                    overflow: 'hidden'
+                                                }}>
                                                     <motion.div
                                                         custom={skill.level}
                                                         variants={skillBarVariants}
@@ -286,14 +210,13 @@ const Skills = () => {
                                     </SkillCategory>
                                 </motion.div>
                             </Grid>
+
                             <Grid item xs={12} md={4}>
                                 <motion.div
                                     variants={categoryVariants}
                                     initial="hidden"
                                     whileInView="visible"
                                     whileHover="hover"
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.2 }}
                                 >
                                     <SkillCategory>
                                         <Box display="flex" alignItems="center" mb={3}>
@@ -302,21 +225,17 @@ const Skills = () => {
                                                 Soft Skills
                                             </Typography>
                                         </Box>
+
                                         <Box display="flex" flexWrap="wrap" gap={1}>
                                             {softSkills.map((skill, index) => (
-                                                <motion.div
-                                                    key={index}
-                                                    whileHover={{ scale: 1.05 }}
-                                                    whileTap={{ scale: 0.95 }}
-                                                >
+                                                <motion.div key={index} whileHover={{ scale: 1.05 }}>
                                                     <Chip
                                                         label={skill}
                                                         variant="outlined"
                                                         sx={{
                                                             color: 'primary.contrastText',
                                                             borderColor: 'secondary.main',
-                                                            mb: 1,
-                                                            fontWeight: 500,
+                                                            mb: 1
                                                         }}
                                                     />
                                                 </motion.div>
@@ -327,12 +246,10 @@ const Skills = () => {
                             </Grid>
                         </Grid>
                     )}
-
-                    {/* Outras tabs... (mantenha a mesma estrutura) */}
                 </motion.div>
             </Container>
         </StyledSkills>
-    )
-}
+    );
+};
 
-export default Skills
+export default Skills;
