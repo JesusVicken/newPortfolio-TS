@@ -80,7 +80,7 @@ const About = () => {
                         </Typography>
 
                         <Typography variant="h6" color="text.secondary" paragraph sx={{ mb: 4, lineHeight: 1.8 }}>
-                            Com mais de <Box component="span" color="secondary.main" fontWeight="600">3 anos de experiência</Box>, já trabalhei em diversos projetos, desde aplicações web complexas até sistemas escaláveis, sempre focando em código limpo, performance e experiência do usuário.
+                            Com mais de <Box component="span" color="secondary.main" fontWeight="600">5 anos de experiência</Box>, já trabalhei em diversos projetos, desde aplicações web complexas até sistemas escaláveis, sempre focando em código limpo, performance e experiência do usuário.
                         </Typography>
 
                         <Grid container spacing={3} sx={{ mt: 4 }}>
@@ -97,7 +97,7 @@ const About = () => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={4} textAlign="center">
-                                <StatNumber>3+</StatNumber>
+                                <StatNumber>5+</StatNumber>
                                 <Typography color="text.secondary" fontWeight="500">
                                     Anos Exp
                                 </Typography>

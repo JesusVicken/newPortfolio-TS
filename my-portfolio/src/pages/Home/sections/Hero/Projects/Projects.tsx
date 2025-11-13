@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Container, Typography, Box, styled, Grid, Card, CardContent, CardActions, Button, Chip, Tabs, Tab } from "@mui/material"
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LaunchIcon from '@mui/icons-material/Launch';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const Projects = () => {
     const [activeFilter, setActiveFilter] = useState('all');
@@ -31,79 +31,98 @@ const Projects = () => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        transition: 'all 0.4s ease',
         background: 'rgba(255, 255, 255, 0.05)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
         borderRadius: '20px',
         backdropFilter: 'blur(10px)',
         overflow: 'hidden',
-        '&:hover': {
-            transform: 'translateY(-12px) scale(1.02)',
-            borderColor: theme.palette.secondary.main,
-            boxShadow: `0 25px 50px rgba(0, 255, 136, 0.2)`,
-            '& .project-image': {
-                transform: 'scale(1.1)',
-            }
-        }
     }))
 
+    // SEUS PROJETOS REAIS - CAMINHOS CORRETOS
     const projectsData = [
         {
-            title: 'E-Commerce Platform',
-            description: 'Plataforma completa de e-commerce com sistema de pagamentos, carrinho, wishlist e painel administrativo. Desenvolvida com React, Node.js e MongoDB.',
-            technologies: ['React', 'Node.js', 'MongoDB', 'Stripe', 'JWT', 'Redux'],
-            githubUrl: 'https://github.com/jesusvicken/ecommerce-platform',
-            liveUrl: 'https://ecommerce-jv.vercel.app',
-            image: '/project1.jpg',
+            title: 'Constrictor Team',
+            description: 'Site oficial da Constrictor Team com design moderno e responsivo, showcasing de produtos e serviços.',
+            technologies: ['React', 'TypeScript', 'Material-UI', 'Vite'],
+            githubUrl: 'https://github.com/seu-user/constrictor',
+            liveUrl: 'https://www.constrictorteam.com.br/',
+            image: '/constrictor.jpg', // ← CAMINHO DIRETO DA PUBLIC
+            category: 'frontend',
+            featured: true
+        },
+        {
+            title: 'CPP Extreme Landing Page',
+            description: 'Plataforma fitness com sistema de agendamentos, planos de treino e área do aluno integrada.',
+            technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+            githubUrl: 'https://github.com/seu-user/cpp-extreme',
+            liveUrl: 'https://cppextremebsb.vercel.app/',
+            image: '/cpp.jpg', // ← CAMINHO DIRETO DA PUBLIC
             category: 'fullstack',
             featured: true
         },
         {
-            title: 'TaskFlow Manager',
-            description: 'Aplicativo de gerenciamento de tarefas com drag-and-drop, notificações em tempo real e colaboração em equipe usando WebSockets.',
-            technologies: ['React', 'TypeScript', 'Socket.io', 'PostgreSQL', 'Material-UI'],
-            githubUrl: 'https://github.com/jesusvicken/taskflow-manager',
-            liveUrl: 'https://taskflow-jv.vercel.app',
-            image: '/project2.jpg',
-            category: 'fullstack',
-            featured: true
-        },
-        {
-            title: 'Weather Analytics',
-            description: 'Dashboard meteorológico com previsões em tempo real, gráficos interativos e machine learning para previsões personalizadas.',
-            technologies: ['Vue.js', 'Chart.js', 'Python', 'FastAPI', 'TensorFlow'],
-            githubUrl: 'https://github.com/jesusvicken/weather-analytics',
-            liveUrl: 'https://weather-jv.vercel.app',
-            image: '/project3.jpg',
+            title: 'Tati Neuro',
+            description: 'Site profissional para neuropsicóloga com blog integrado, agendamento online e área de pacientes.',
+            technologies: ['Next.js', 'TypeScript', 'Styled Components'],
+            githubUrl: 'https://github.com/seu-user/tatineuro',
+            liveUrl: 'https://tatineuro.vercel.app/',
+            image: '/tati.jpg', // ← CAMINHO DIRETO DA PUBLIC
             category: 'frontend'
         },
         {
-            title: 'Social Media Dashboard',
-            description: 'Ferramenta de análise de redes sociais que consome múltiplas APIs e apresenta métricas através de visualizações interativas.',
-            technologies: ['React', 'D3.js', 'Node.js', 'Express', 'MongoDB'],
-            githubUrl: 'https://github.com/jesusvicken/social-dashboard',
-            liveUrl: 'https://social-jv.vercel.app',
-            image: '/project4.jpg',
+            title: 'Depireux Fit',
+            description: 'Plataforma de coaching fitness com sistema de planos alimentares, acompanhamento e métricas.',
+            technologies: ['React', 'Firebase', 'Chart.js', 'PWA'],
+            githubUrl: 'https://github.com/seu-user/depireuxfit',
+            liveUrl: 'https://depireuxfit.vercel.app/',
+            image: '/cris.jpg', // ← CAMINHO DIRETO DA PUBLIC
             category: 'fullstack'
         },
         {
-            title: 'Fitness Tracker App',
-            description: 'Aplicativo mobile para acompanhamento de exercícios, dieta e progresso fitness com sincronização em nuvem e analytics.',
-            technologies: ['React Native', 'Firebase', 'Redux', 'Chart.js', 'Expo'],
-            githubUrl: 'https://github.com/jesusvicken/fitness-tracker',
-            liveUrl: 'https://play.google.com/store/apps/details?id=com.jv.fitness',
-            image: '/project5.jpg',
-            category: 'mobile'
+            title: 'Cubic Esquadrias',
+            description: 'Site institucional para empresa de esquadrias em alumínio com catálogo de produtos e orçamentos.',
+            technologies: ['React', 'Material-UI', 'Formik', 'EmailJS'],
+            githubUrl: 'https://github.com/seu-user/cubice',
+            liveUrl: 'https://cubicesquadrias.vercel.app/',
+            image: '/cubic.JPG', // ← CAMINHO DIRETO DA PUBLIC
+            category: 'frontend'
         },
         {
-            title: 'AI Content Generator',
-            description: 'Plataforma de geração de conteúdo com IA integrada, suporte multi-idioma e editor markdown avançado.',
-            technologies: ['Next.js', 'OpenAI API', 'Tailwind CSS', 'Prisma', 'PostgreSQL'],
-            githubUrl: 'https://github.com/jesusvicken/ai-content-generator',
-            liveUrl: 'https://ai-content-jv.vercel.app',
-            image: '/project6.jpg',
-            category: 'fullstack',
-            featured: true
+            title: 'Carolina Nantet',
+            description: 'Portfolio profissional com design elegante, showcase de trabalhos e formulário de contato integrado.',
+            technologies: ['React', 'Framer Motion', 'Styled Components'],
+            githubUrl: 'https://github.com/seu-user/carol',
+            liveUrl: 'https://carolinanantet.vercel.app/',
+            image: '/carol.jpg', // ← CAMINHO DIRETO DA PUBLIC
+            category: 'frontend'
+        },
+        {
+            title: 'CPP Extreme Site',
+            description: 'Landing page moderna para academia com captura de leads, informações de planos e localização.',
+            technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+            githubUrl: 'https://github.com/seu-user/cpp-site',
+            liveUrl: 'https://cppextreme.vercel.app/',
+            image: '/cppsite.jpg', // ← CAMINHO DIRETO DA PUBLIC
+            category: 'frontend'
+        },
+        {
+            title: 'Arruas Tattoo',
+            description: 'Landing page moderna para estudio de tatuagem e artista tatuador.',
+            technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+            githubUrl: 'https://github.com/seu-user/cpp-site',
+            liveUrl: 'https://arruastattoo.vercel.app/',
+            image: '/tatto.jpg', // ← CAMINHO DIRETO DA PUBLIC
+            category: 'frontend'
+        },
+        {
+            title: 'Pet Shop Landing Page',
+            description: 'Landing page moderna para Pet Shop.',
+            technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+            githubUrl: 'https://github.com/seu-user/cpp-site',
+            liveUrl: 'https://pet-shop-landingpage.vercel.app/',
+            image: '/pet.jpg', // ← CAMINHO DIRETO DA PUBLIC
+            category: 'frontend'
         }
     ]
 
@@ -115,181 +134,290 @@ const Projects = () => {
         setActiveFilter(newValue);
     };
 
+    // Animations
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                duration: 0.6
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.6,
+                ease: "easeOut"
+            }
+        }
+    };
+
+    const cardVariants = {
+        hidden: { opacity: 0, scale: 0.9 },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                duration: 0.5,
+                ease: "easeOut"
+            }
+        },
+        hover: {
+            y: -12,
+            scale: 1.02,
+            borderColor: '#00ff88',
+            boxShadow: '0 25px 50px rgba(0, 255, 136, 0.2)',
+            transition: {
+                duration: 0.3,
+                ease: "easeInOut"
+            }
+        }
+    };
+
+    const imageVariants = {
+        hover: {
+            scale: 1.1,
+            transition: {
+                duration: 0.4,
+                ease: "easeOut"
+            }
+        }
+    };
+
     return (
         <StyledProjects id="projects">
             <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-                <Typography
-                    variant="h2"
-                    component="h2"
-                    gutterBottom
-                    textAlign="center"
-                    mb={2}
-                    sx={{
-                        background: 'linear-gradient(45deg, #ffffff, #b0b0b0)',
-                        backgroundClip: 'text',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                    }}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
                 >
-                    Featured Projects
-                </Typography>
+                    <Typography
+                        variant="h2"
+                        component="h2"
+                        gutterBottom
+                        textAlign="center"
+                        mb={2}
+                        sx={{
+                            background: 'linear-gradient(45deg, #ffffff, #b0b0b0)',
+                            backgroundClip: 'text',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                        }}
+                    >
+                        Featured Projects
+                    </Typography>
 
-                <Typography
-                    variant="h6"
-                    textAlign="center"
-                    color="text.secondary"
-                    mb={6}
-                    maxWidth="700px"
-                    mx="auto"
-                >
-                    Confira alguns dos projetos que desenvolvi, combinando as mais modernas tecnologias
-                    com design inovador e performance excepcional.
-                </Typography>
+                    <Typography
+                        variant="h6"
+                        textAlign="center"
+                        color="text.secondary"
+                        mb={6}
+                        maxWidth="700px"
+                        mx="auto"
+                    >
+                        Confira alguns dos projetos que desenvolvi, combinando as mais modernas tecnologias
+                        com design inovador e performance excepcional.
+                    </Typography>
+                </motion.div>
 
                 {/* Filter Tabs */}
-                <Box sx={{ borderBottom: 1, borderColor: 'rgba(255,255,255,0.1)', mb: 6 }}>
-                    <Tabs
-                        value={activeFilter}
-                        onChange={handleFilterChange}
-                        textColor="secondary"
-                        indicatorColor="secondary"
-                        centered
-                    >
-                        <Tab label="All Projects" value="all" />
-                        <Tab label="Fullstack" value="fullstack" />
-                        <Tab label="Frontend" value="frontend" />
-                        <Tab label="Mobile" value="mobile" />
-                    </Tabs>
-                </Box>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                    <Box sx={{ borderBottom: 1, borderColor: 'rgba(255,255,255,0.1)', mb: 6 }}>
+                        <Tabs
+                            value={activeFilter}
+                            onChange={handleFilterChange}
+                            textColor="secondary"
+                            indicatorColor="secondary"
+                            centered
+                        >
+                            <Tab label="All Projects" value="all" />
+                            <Tab label="Fullstack" value="fullstack" />
+                            <Tab label="Frontend" value="frontend" />
+                        </Tabs>
+                    </Box>
+                </motion.div>
 
-                <Grid container spacing={4}>
-                    {filteredProjects.map((project, index) => (
-                        <Grid item xs={12} md={6} lg={4} key={index}>
-                            <ProjectCard>
-                                <Box
-                                    className="project-image"
-                                    sx={{
-                                        height: 200,
-                                        background: `linear-gradient(45deg, ${project.featured ? '#00ff88' : '#00ccff'}, ${project.featured ? '#00ccff' : '#ff00ff'})`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
-                                        position: 'relative',
-                                        transition: 'transform 0.4s ease',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        color: 'primary.main',
-                                        fontWeight: 'bold',
-                                        fontSize: '1.2rem'
-                                    }}
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-50px" }}
+                >
+                    <Grid container spacing={4}>
+                        {filteredProjects.map((project, index) => (
+                            <Grid item xs={12} md={6} lg={4} key={index}>
+                                <motion.div
+                                    variants={cardVariants}
+                                    whileHover="hover"
+                                    style={{ height: '100%' }}
                                 >
-                                    <VisibilityIcon sx={{ fontSize: 48, opacity: 0.8 }} />
-                                    {project.featured && (
-                                        <Chip
-                                            label="Featured"
-                                            sx={{
-                                                position: 'absolute',
-                                                top: 16,
-                                                right: 16,
-                                                background: 'linear-gradient(45deg, #00ff88, #00ccff)',
-                                                color: 'primary.main',
-                                                fontWeight: 'bold'
-                                            }}
-                                        />
-                                    )}
-                                </Box>
-                                <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                                    <Typography gutterBottom variant="h5" component="h3" fontWeight="bold">
-                                        {project.title}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary" paragraph sx={{ lineHeight: 1.6 }}>
-                                        {project.description}
-                                    </Typography>
-                                    <Box display="flex" flexWrap="wrap" gap={1} mt={2}>
-                                        {project.technologies.map((tech, techIndex) => (
-                                            <Chip
-                                                key={techIndex}
-                                                label={tech}
-                                                size="small"
-                                                variant="outlined"
+                                    <ProjectCard>
+                                        <motion.div
+                                            variants={imageVariants}
+                                            style={{ height: '200px', overflow: 'hidden' }}
+                                        >
+                                            {/* IMAGEM REAL DO PROJETO */}
+                                            <Box
                                                 sx={{
-                                                    borderColor: 'secondary.main',
-                                                    color: 'primary.contrastText',
-                                                    fontWeight: 500,
+                                                    height: '100%',
+                                                    background: `url(${project.image})`,
+                                                    backgroundSize: 'cover',
+                                                    backgroundPosition: 'center',
+                                                    backgroundRepeat: 'no-repeat',
+                                                    position: 'relative'
                                                 }}
-                                            />
-                                        ))}
-                                    </Box>
-                                </CardContent>
-                                <CardActions sx={{ p: 3, pt: 0 }}>
-                                    <Button
-                                        size="medium"
-                                        startIcon={<GitHubIcon />}
-                                        href={project.githubUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        sx={{
-                                            color: 'text.primary',
-                                            fontWeight: 600,
-                                            '&:hover': {
-                                                color: 'secondary.main',
-                                            }
-                                        }}
-                                    >
-                                        Code
-                                    </Button>
-                                    <Button
-                                        size="medium"
-                                        startIcon={<LaunchIcon />}
-                                        href={project.liveUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        sx={{
-                                            background: 'linear-gradient(45deg, #00ff88, #00ccff)',
-                                            color: 'primary.main',
-                                            fontWeight: 600,
-                                            px: 3,
-                                            '&:hover': {
-                                                background: 'linear-gradient(45deg, #00ccff, #00ff88)',
-                                                transform: 'translateY(-2px)',
-                                            }
-                                        }}
-                                    >
-                                        Live Demo
-                                    </Button>
-                                </CardActions>
-                            </ProjectCard>
-                        </Grid>
-                    ))}
-                </Grid>
+                                            >
+                                                {/* Overlay escuro para melhor legibilidade */}
+                                                <Box
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        top: 0,
+                                                        left: 0,
+                                                        right: 0,
+                                                        bottom: 0,
+                                                        background: 'rgba(0, 0, 0, 0.4)',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        color: 'white',
+                                                        fontWeight: 'bold',
+                                                        fontSize: '1.5rem',
+                                                        textAlign: 'center',
+                                                        padding: 2
+                                                    }}
+                                                >
+                                                    {project.title}
+                                                </Box>
+                                                {project.featured && (
+                                                    <Chip
+                                                        label="Featured"
+                                                        sx={{
+                                                            position: 'absolute',
+                                                            top: 16,
+                                                            right: 16,
+                                                            background: 'linear-gradient(45deg, #00ff88, #00ccff)',
+                                                            color: 'primary.main',
+                                                            fontWeight: 'bold',
+                                                            zIndex: 2
+                                                        }}
+                                                    />
+                                                )}
+                                            </Box>
+                                        </motion.div>
+                                        <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                                            <Typography gutterBottom variant="h5" component="h3" fontWeight="bold">
+                                                {project.title}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary" paragraph sx={{ lineHeight: 1.6 }}>
+                                                {project.description}
+                                            </Typography>
+                                            <Box display="flex" flexWrap="wrap" gap={1} mt={2}>
+                                                {project.technologies.map((tech, techIndex) => (
+                                                    <Chip
+                                                        key={techIndex}
+                                                        label={tech}
+                                                        size="small"
+                                                        variant="outlined"
+                                                        sx={{
+                                                            borderColor: 'secondary.main',
+                                                            color: 'primary.contrastText',
+                                                            fontWeight: 500,
+                                                        }}
+                                                    />
+                                                ))}
+                                            </Box>
+                                        </CardContent>
+                                        <CardActions sx={{ p: 3, pt: 0 }}>
+                                            <Button
+                                                size="medium"
+                                                startIcon={<GitHubIcon />}
+                                                href={project.githubUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                sx={{
+                                                    color: 'text.primary',
+                                                    fontWeight: 600,
+                                                    '&:hover': {
+                                                        color: 'secondary.main',
+                                                    }
+                                                }}
+                                            >
+                                                Code
+                                            </Button>
+                                            <Button
+                                                size="medium"
+                                                startIcon={<LaunchIcon />}
+                                                href={project.liveUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                sx={{
+                                                    background: 'linear-gradient(45deg, #00ff88, #00ccff)',
+                                                    color: 'primary.main',
+                                                    fontWeight: 600,
+                                                    px: 3,
+                                                    '&:hover': {
+                                                        background: 'linear-gradient(45deg, #00ccff, #00ff88)',
+                                                        transform: 'translateY(-2px)',
+                                                    }
+                                                }}
+                                            >
+                                                Live Demo
+                                            </Button>
+                                        </CardActions>
+                                    </ProjectCard>
+                                </motion.div>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </motion.div>
 
-                <Box textAlign="center" mt={8}>
-                    <Typography variant="h5" color="text.secondary" mb={3}>
-                        Interested in seeing more?
-                    </Typography>
-                    <Button
-                        variant="outlined"
-                        size="large"
-                        href="https://github.com/jesusvicken"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        sx={{
-                            borderColor: 'secondary.main',
-                            color: 'secondary.main',
-                            px: 4,
-                            py: 1.5,
-                            fontSize: '1.1rem',
-                            '&:hover': {
-                                background: 'rgba(0, 255, 136, 0.1)',
-                                borderColor: 'secondary.light',
-                                transform: 'translateY(-2px)',
-                            }
-                        }}
-                        startIcon={<GitHubIcon />}
-                    >
-                        Explore GitHub
-                    </Button>
-                </Box>
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                >
+                    <Box textAlign="center" mt={8}>
+                        <Typography variant="h5" color="text.secondary" mb={3}>
+                            Interested in seeing more?
+                        </Typography>
+                        <Button
+                            variant="outlined"
+                            size="large"
+                            href="https://github.com/jesusvicken"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{
+                                borderColor: 'secondary.main',
+                                color: 'secondary.main',
+                                px: 4,
+                                py: 1.5,
+                                fontSize: '1.1rem',
+                                '&:hover': {
+                                    background: 'rgba(0, 255, 136, 0.1)',
+                                    borderColor: 'secondary.light',
+                                    transform: 'translateY(-2px)',
+                                }
+                            }}
+                            startIcon={<GitHubIcon />}
+                        >
+                            Explore GitHub
+                        </Button>
+                    </Box>
+                </motion.div>
             </Container>
         </StyledProjects>
     )
