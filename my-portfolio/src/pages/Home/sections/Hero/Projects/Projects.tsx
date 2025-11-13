@@ -153,7 +153,7 @@ const Projects = () => {
             y: 0,
             transition: {
                 duration: 0.6,
-                ease: "easeOut"
+                ease: "easeOut" as any
             }
         }
     };
@@ -165,7 +165,7 @@ const Projects = () => {
             scale: 1,
             transition: {
                 duration: 0.5,
-                ease: "easeOut"
+                ease: "easeOut" as any
             }
         },
         hover: {
@@ -175,7 +175,7 @@ const Projects = () => {
             boxShadow: '0 25px 50px rgba(0, 255, 136, 0.2)',
             transition: {
                 duration: 0.3,
-                ease: "easeInOut"
+                ease: "easeInOut" as any
             }
         }
     };
@@ -185,10 +185,11 @@ const Projects = () => {
             scale: 1.1,
             transition: {
                 duration: 0.4,
-                ease: "easeOut"
+                ease: "easeOut" as any
             }
         }
     };
+
 
     return (
         <StyledProjects id="projects">
