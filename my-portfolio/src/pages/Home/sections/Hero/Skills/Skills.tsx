@@ -161,7 +161,7 @@ const Skills = () => {
             borderColor: '#00ff88',
             transition: {
                 duration: 0.3,
-                ease: "easeInOut"
+                ease: [0.4, 0.0, 0.2, 1]
             }
         }
     };

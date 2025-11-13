@@ -175,7 +175,7 @@ const Projects = () => {
             boxShadow: '0 25px 50px rgba(0, 255, 136, 0.2)',
             transition: {
                 duration: 0.3,
-                ease: "easeInOut"
+                ease: [0.4, 0.0, 0.2, 1]
             }
         }
     };
