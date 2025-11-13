@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Grid, Typography, styled, Box, keyframes } from "@mui/material"
 import Avatar from '../../../../assets/images/2.jpeg'
 import EmailIcon from '@mui/icons-material/Email';
@@ -22,10 +22,15 @@ const Hero = () => {
     const [isDeleting, setIsDeleting] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
 
-    const words = ['Fullstack Developer', 'UI/UX Enthusiast', 'Problem Solver', 'Tech Innovator'];
+    const words = useMemo(
+        () => ['Fullstack Developer', 'UI/UX Enthusiast', 'Problem Solver', 'Tech Innovator'],
+        []
+    );
+
 
     useEffect(() => {
-        let timeoutId: NodeJS.Timeout;
+        let timeoutId: ReturnType<typeof setTimeout>;
+
 
         const type = () => {
             const currentWord = words[currentWordIndex];
