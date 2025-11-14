@@ -1,281 +1,220 @@
-import { useState, useEffect, useMemo } from 'react';
-import { Container, Grid, Typography, styled, Box, keyframes } from "@mui/material"
-import Avatar from '../../../../assets/images/2.jpeg'
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { Container, Grid, Typography, styled, Box } from "@mui/material";
+import { motion } from "framer-motion";
+import Avatar from "../../../../assets/images/2.jpeg";
+import BgImage from "../../../../../public/bg.jpg";
 import EmailIcon from '@mui/icons-material/Email';
 import DownloadIcon from '@mui/icons-material/Download';
 import CodeIcon from '@mui/icons-material/Code';
 import StyledButton from "../../../../components/StyledButton/StyledButton";
 
-const float = keyframes`
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
-`;
+// Typing effect
+const useTypingEffect = (words: string[], speed = 100, eraseSpeed = 50, pause = 2000) => {
+    const [displayText, setDisplayText] = useState('');
+    const [index, setIndex] = useState(0);
+    const [isDeleting, setIsDeleting] = useState(false);
 
-const glow = keyframes`
-  0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.6), 0 0 60px rgba(0, 255, 136, 0.3); }
-`;
+    useEffect(() => {
+        const current = words[index];
+        let timeout: any;
+
+        if (!isDeleting) {
+            if (displayText.length < current.length) {
+                timeout = setTimeout(() => {
+                    setDisplayText(current.slice(0, displayText.length + 1));
+                }, speed);
+            } else {
+                timeout = setTimeout(() => setIsDeleting(true), pause);
+            }
+        } else {
+            if (displayText.length > 0) {
+                timeout = setTimeout(() => {
+                    setDisplayText(current.slice(0, displayText.length - 1));
+                }, eraseSpeed);
+            } else {
+                setIsDeleting(false);
+                setIndex((prev) => (prev + 1) % words.length);
+            }
+        }
+
+        return () => clearTimeout(timeout);
+    }, [displayText, isDeleting, index]);
+
+    return displayText;
+};
+
+// MAIN HERO WRAPPER
+const HeroWrapper = styled("section")(() => ({
+    width: "100%",
+    minHeight: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    overflow: "hidden",
+    background: "#000",
+}));
+
+// BACKGROUND IMAGE WITH STRONG REVEAL
+const BackgroundReveal = styled("div")<{
+    mouseX: number;
+    mouseY: number;
+    hovering: boolean;
+}>(({ mouseX, mouseY, hovering }) => ({
+    position: "absolute",
+    inset: 0,
+    backgroundImage: `url(${BgImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    filter: hovering ? "brightness(1.25) contrast(1.25)" : "brightness(0.1)", // 👈 MAIS VISÍVEL
+    transition: "filter 0.2s ease-out",
+
+    // CIRCLE REVEAL
+    maskImage: hovering
+        ? `radial-gradient(circle 550px at ${mouseX}px ${mouseY}px, white 0%, transparent 100%)`
+        : "none",
+    WebkitMaskImage: hovering
+        ? `radial-gradient(circle 550px at ${mouseX}px ${mouseY}px, white 0%, transparent 100%)`
+        : "none",
+
+    zIndex: 0,
+}));
+
+// DARK OVERLAY (DEIXEI BEM MAIS FRACO)
+const Overlay = styled("div")(() => ({
+    position: "absolute",
+    inset: 0,
+    background: "rgba(0, 0, 0, 0.65)", // 👈 ERA 0.95 — agora o BG aparece BEM mais
+    zIndex: 1,
+}));
+
+// AVATAR
+const FloatingAvatar = styled(motion.img)(({ theme }) => ({
+    width: "300px",
+    height: "300px",
+    borderRadius: "50%",
+    border: `3px solid ${theme.palette.secondary.main}`,
+    zIndex: 3,
+}));
+
+const CodeBox = styled(Box)(({ theme }) => ({
+    marginTop: theme.spacing(4),
+    padding: theme.spacing(2),
+    background: "rgba(0,255,136,0.05)",
+    border: "1px solid rgba(0,255,136,0.2)",
+    borderRadius: "10px",
+    color: theme.palette.secondary.main,
+    fontFamily: "'Fira Code', monospace",
+    width: "fit-content",
+}));
 
 const Hero = () => {
-    const [displayText, setDisplayText] = useState('');
-    const [currentWordIndex, setCurrentWordIndex] = useState(0);
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [isPaused, setIsPaused] = useState(false);
-
     const words = useMemo(
-        () => ['Fullstack Developer', 'UI/UX Enthusiast', 'Problem Solver', 'Tech Innovator'],
+        () => ["Fullstack Developer", "UI/UX Enthusiast", "Problem Solver", "Tech Innovator"],
         []
     );
 
+    const [mouse, setMouse] = useState({ x: 0, y: 0 });
+    const [hovering, setHovering] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+
+    const displayText = useTypingEffect(words);
 
     useEffect(() => {
-        let timeoutId: ReturnType<typeof setTimeout>;
-
-
-        const type = () => {
-            const currentWord = words[currentWordIndex];
-
-            // Se estiver pausado (após completar a palavra)
-            if (isPaused) {
-                timeoutId = setTimeout(() => {
-                    setIsPaused(false);
-                    setIsDeleting(true);
-                }, 2000); // Pausa por 2 segundos antes de começar a deletar
-                return;
-            }
-
-            if (isDeleting) {
-                // Deletando
-                if (displayText.length > 0) {
-                    setDisplayText(currentWord.substring(0, displayText.length - 1));
-                    timeoutId = setTimeout(type, 50); // Velocidade de deletar
-                } else {
-                    // Terminou de deletar, vai para próxima palavra
-                    setIsDeleting(false);
-                    setCurrentWordIndex((prev) => (prev + 1) % words.length);
-                    timeoutId = setTimeout(type, 500); // Pausa antes de começar nova palavra
-                }
-            } else {
-                // Digitando
-                if (displayText.length < currentWord.length) {
-                    setDisplayText(currentWord.substring(0, displayText.length + 1));
-                    timeoutId = setTimeout(type, 100); // Velocidade de digitação
-                } else {
-                    // Terminou de digitar a palavra completa
-                    setIsPaused(true);
-                    timeoutId = setTimeout(type, 100);
-                }
+        const handleMove = (e: MouseEvent) => {
+            if (ref.current) {
+                const rect = ref.current.getBoundingClientRect();
+                setMouse({
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top,
+                });
             }
         };
 
-        timeoutId = setTimeout(type, 200); // Delay inicial
+        const el = ref.current;
+        if (!el) return;
+
+        el.addEventListener("mousemove", handleMove);
+        el.addEventListener("mouseenter", () => setHovering(true));
+        el.addEventListener("mouseleave", () => setHovering(false));
 
         return () => {
-            clearTimeout(timeoutId);
+            el.removeEventListener("mousemove", handleMove);
+            el.removeEventListener("mouseenter", () => setHovering(true));
+            el.removeEventListener("mouseleave", () => setHovering(false));
         };
-    }, [displayText, isDeleting, isPaused, currentWordIndex, words]);
-
-    const StyledHero = styled("div")(({ theme }) => ({
-        backgroundColor: theme.palette.primary.main,
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%)',
-        '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: `
-                radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 204, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 0, 255, 0.05) 0%, transparent 50%)
-            `,
-        }
-    }))
-
-    const StyledImg = styled("img")(({ theme }) => ({
-        width: '320px',
-        height: '320px',
-        borderRadius: '50%',
-        border: `3px solid ${theme.palette.secondary.main}`,
-        animation: `${float} 6s ease-in-out infinite, ${glow} 4s ease-in-out infinite`,
-        position: 'relative',
-        zIndex: 2,
-        [theme.breakpoints.down('md')]: {
-            width: '280px',
-            height: '280px',
-        },
-        [theme.breakpoints.down('sm')]: {
-            width: '240px',
-            height: '240px',
-        }
-    }))
-
-    const CodeSnippet = styled(Box)(({ theme }) => ({
-        background: 'rgba(0, 255, 136, 0.05)',
-        border: '1px solid rgba(0, 255, 136, 0.2)',
-        borderRadius: '12px',
-        padding: theme.spacing(2),
-        fontFamily: "'Fira Code', monospace",
-        fontSize: '0.9rem',
-        color: theme.palette.secondary.main,
-        marginTop: theme.spacing(4),
-        maxWidth: '400px',
-        margin: 'auto',
-    }))
+    }, []);
 
     return (
-        <StyledHero id="home">
-            {/* Animated Background Elements */}
-            <Box
-                sx={{
-                    position: 'absolute',
-                    top: '10%',
-                    left: '10%',
-                    width: '100px',
-                    height: '100px',
-                    background: 'radial-gradient(circle, rgba(0,255,136,0.3) 0%, transparent 70%)',
-                    animation: `${float} 8s ease-in-out infinite`,
-                }}
-            />
-            <Box
-                sx={{
-                    position: 'absolute',
-                    bottom: '20%',
-                    right: '10%',
-                    width: '150px',
-                    height: '150px',
-                    background: 'radial-gradient(circle, rgba(0,204,255,0.2) 0%, transparent 70%)',
-                    animation: `${float} 10s ease-in-out infinite reverse`,
-                }}
+        <HeroWrapper ref={ref} id="home">
+
+            {/* BACKGROUND REVEAL */}
+            <BackgroundReveal
+                mouseX={mouse.x}
+                mouseY={mouse.y}
+                hovering={hovering}
             />
 
-            <Container maxWidth='lg' sx={{ position: 'relative', zIndex: 2 }}>
-                <Grid container spacing={4} alignItems="center" justifyContent="center">
-                    <Grid item xs={12} md={6} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-                        <Typography
-                            variant="h1"
-                            sx={{
-                                mb: 2,
-                                fontSize: { xs: '2.5rem', md: '3.5rem', lg: '4rem' }
-                            }}
-                        >
+            {/* DARK OVERLAY */}
+            <Overlay />
+
+            {/* CONTENT */}
+            <Container sx={{ position: "relative", zIndex: 3 }}>
+                <Grid container spacing={4} alignItems="center">
+                    <Grid item xs={12} md={6}>
+                        <Typography variant="h1" sx={{ fontSize: "3.5rem", fontWeight: 800, color: "#fff" }}>
                             Jesus Vicken
                         </Typography>
 
                         <Typography
                             variant="h2"
                             sx={{
-                                mb: 3,
-                                minHeight: '80px',
-                                fontSize: { xs: '1.5rem', md: '2rem' },
-                                color: 'secondary.main'
+                                fontSize: "2rem",
+                                color: "#00ff88",
+                                minHeight: "60px"
                             }}
                         >
-                            {displayText}
-                            <Box
-                                component="span"
-                                sx={{
-                                    animation: 'blink 1s infinite',
-                                    '@keyframes blink': {
-                                        '0%, 100%': { opacity: 1 },
-                                        '50%': { opacity: 0 }
-                                    }
-                                }}
-                            >
-                                |
-                            </Box>
+                            {displayText}|
                         </Typography>
 
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                mb: 4,
-                                color: 'text.secondary',
-                                lineHeight: 1.6,
-                                maxWidth: '500px',
-                                mx: { xs: 'auto', md: 0 }
-                            }}
-                        >
+                        <Typography sx={{ color: "#ccc", mb: 3 }}>
                             Crafting digital experiences with cutting-edge technologies.
-                            Passionate about creating scalable solutions and beautiful interfaces.
                         </Typography>
 
-                        <Grid container spacing={3} sx={{ maxWidth: '400px', mx: { xs: 'auto', md: 0 } }}>
-                            <Grid item xs={12} sm={6}>
-                                <a href="/JESUS_CV.pdf" download style={{ textDecoration: 'none', display: 'block' }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                <a href="/JESUS_CV.pdf" download style={{ textDecoration: "none" }}>
                                     <StyledButton variant="primary">
-                                        <DownloadIcon />
-                                        <Typography variant="button">
-                                            Download CV
-                                        </Typography>
+                                        <DownloadIcon /> CV
                                     </StyledButton>
                                 </a>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <a
-                                    href="mailto:jesus.vicken@example.com"
-                                    style={{ textDecoration: 'none', display: 'block' }}
-                                >
+
+                            <Grid item xs={6}>
+                                <a href="mailto:jesus.vicken@example.com" style={{ textDecoration: "none" }}>
                                     <StyledButton variant="secondary">
-                                        <EmailIcon />
-                                        <Typography variant="button">
-                                            Contact me
-                                        </Typography>
+                                        <EmailIcon /> Contact
                                     </StyledButton>
                                 </a>
                             </Grid>
                         </Grid>
 
-                        <CodeSnippet>
-                            <Box display="flex" alignItems="center" gap={1} mb={1}>
-                                <CodeIcon sx={{ fontSize: 16 }} />
-                                <Typography variant="caption" fontFamily="inherit">
-                                    // Currently working with modern stack
-                                </Typography>
-                            </Box>
-                            <Typography fontFamily="inherit">
-                                const techStack = ['React', 'TypeScript', 'Node.js', 'MongoDB'];
-                            </Typography>
-                        </CodeSnippet>
+                        <CodeBox>
+                            <Typography>const techStack = ['React','TS','Node','MongoDB']</Typography>
+                        </CodeBox>
                     </Grid>
 
-                    <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <Box
-                            sx={{
-                                position: 'relative',
-                                '&::after': {
-                                    content: '""',
-                                    position: 'absolute',
-                                    top: '-20px',
-                                    left: '-20px',
-                                    right: '-20px',
-                                    bottom: '-20px',
-                                    background: 'conic-gradient(from 45deg, #00ff88, #00ccff, #ff00ff, #00ff88)',
-                                    borderRadius: '50%',
-                                    animation: 'spin 4s linear infinite',
-                                    zIndex: 1,
-                                    filter: 'blur(20px)',
-                                    opacity: 0.3,
-                                    '@keyframes spin': {
-                                        '0%': { transform: 'rotate(0deg)' },
-                                        '100%': { transform: 'rotate(360deg)' }
-                                    }
-                                }
-                            }}
-                        >
-                            <StyledImg src={Avatar} alt="Jesus Vicken - Fullstack Developer" />
-                        </Box>
+                    <Grid item xs={12} md={6} display="flex" justifyContent="center">
+                        <FloatingAvatar
+                            src={Avatar}
+                            animate={{ y: [0, -15, 0] }}
+                            transition={{ duration: 5, repeat: Infinity }}
+                        />
                     </Grid>
                 </Grid>
             </Container>
-        </StyledHero>
-    )
-}
+        </HeroWrapper>
+    );
+};
 
-export default Hero
+export default Hero;
