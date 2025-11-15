@@ -6,6 +6,7 @@ import Projects from "./sections/Hero/Projects/Projects"
 import HeroApp from "./sections/Hero/HeroApp"
 import ClientsMarquee from "./sections/Hero/ClientsMarquee/ClientsMarquee"
 // import Hero from "./sections/Hero/Hero"
+import ContactButton from "./sections/Hero/ContactButton/ContactButton"
 
 const Home = () => {
     return (
@@ -17,6 +18,8 @@ const Home = () => {
             <About />
             {/* <Skills /> */}
             <Projects />
+            <ContactButton />
+
         </>
     )
 }
