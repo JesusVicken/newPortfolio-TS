@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { Box, Typography, Button, Container, useTheme, useMediaQuery } from "@mui/material";
 
 const words = [
-    "Inovação.",
-    "Sustentabilidade.",
+    "Site institucional.",
+    "Loja virtual.",
     "Displays Inteligentes.",
-    "Soluções Modernas.",
+    "Design Moderno.",
 ];
 
 export default function HeroApp() {
@@ -79,13 +79,13 @@ export default function HeroApp() {
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
-                        opacity: 0.7, // Aumentei a opacidade para 70%
+                        opacity: 0.9, // Aumentei para 90% de opacidade
                     }}
                 >
                     <source src="/hero.mp4" type="video/mp4" />
                 </video>
 
-                {/* Gradient Overlay - Reduzi a opacidade para o vídeo aparecer mais */}
+                {/* Gradient Overlay reduzido */}
                 <Box
                     sx={{
                         position: 'absolute',
@@ -93,7 +93,7 @@ export default function HeroApp() {
                         left: 0,
                         width: '100%',
                         height: '100%',
-                        background: 'linear-gradient(135deg, rgba(10,10,10,0.7) 0%, rgba(26,26,26,0.5) 50%, rgba(10,10,10,0.7) 100%)',
+                        background: 'linear-gradient(135deg, rgba(10,10,10,0.3) 0%, rgba(26,26,26,0.2) 50%, rgba(10,10,10,0.3) 100%)', // Reduzi bastante a opacidade
                     }}
                 />
             </Box>
@@ -135,7 +135,6 @@ export default function HeroApp() {
                                 backgroundClip: 'text',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
-                                textShadow: '0 2px 10px rgba(0,0,0,0.3)', // Adicionei sombra para melhor contraste
                             }}
                         >
                             Tecnologia &
@@ -160,7 +159,7 @@ export default function HeroApp() {
                                 justifyContent: { xs: 'center', md: 'flex-start' },
                                 fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
                                 mb: 4,
-                                textShadow: '0 2px 8px rgba(0,0,0,0.4)', // Sombra para melhor legibilidade
+                                textShadow: '0 4px 12px rgba(0,0,0,0.8)', // Sombra mais forte
                             }}
                         >
                             {text}
@@ -168,7 +167,10 @@ export default function HeroApp() {
                                 component={motion.span}
                                 animate={{ opacity: [0, 1, 0] }}
                                 transition={{ duration: 1, repeat: Infinity }}
-                                sx={{ ml: 0.5 }}
+                                sx={{
+                                    ml: 0.5,
+                                    textShadow: '0 4px 12px rgba(0,0,0,0.8)' // Sombra no cursor também
+                                }}
                             >
                                 |
                             </Box>
@@ -188,16 +190,21 @@ export default function HeroApp() {
                                     md: '1.5rem',
                                 },
                                 fontWeight: 300,
-                                color: 'text.secondary',
+                                color: 'rgba(255,255,255,0.9)', // Texto mais branco
                                 maxWidth: { xs: '100%', md: '80%', lg: '70%' },
                                 lineHeight: 1.6,
                                 mb: 6,
                                 mx: { xs: 'auto', md: 0 },
                                 textAlign: { xs: 'center', md: 'left' },
-                                textShadow: '0 1px 4px rgba(0,0,0,0.5)', // Sombra para melhor contraste
+                                textShadow: '0 2px 8px rgba(0,0,0,0.8)', // Sombra mais forte
+                                backgroundColor: 'rgba(0,0,0,0.4)', // Fundo escuro para melhor legibilidade
+                                backdropFilter: 'blur(8px)',
+                                padding: 3,
+                                borderRadius: 2,
+                                border: '1px solid rgba(255,255,255,0.1)',
                             }}
                         >
-                            Soluções modernas, impacto real e design inteligente para transformar
+                            Soluções de <stromg>Sites modernos</stromg>, com impacto real e design inteligente para transformar
                             suas ideias em realidade digital.
                         </Typography>
 
@@ -215,98 +222,108 @@ export default function HeroApp() {
                                 justifyContent: { xs: 'center', md: 'flex-start' },
                             }}
                         >
+                            {/* Botão Principal com efeito de preenchimento */}
                             <Box
                                 component={motion.div}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover="hover"
+                                whileTap="tap"
+                                sx={{
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    borderRadius: '50px',
+                                    minWidth: { xs: '200px', sm: '220px' },
+                                }}
                             >
-                                <Button
-                                    href="#contato"
-                                    variant="contained"
-                                    size="large"
-                                    sx={{
-                                        px: 4,
-                                        py: 1.5,
-                                        fontSize: '1.1rem',
-                                        fontWeight: 600,
-                                        background: 'linear-gradient(45deg, #00ff88, #00cc66)',
-                                        '&:hover': {
-                                            background: 'linear-gradient(45deg, #00cc66, #00ff88)',
-                                            transform: 'translateY(-2px)',
-                                            boxShadow: '0 10px 25px rgba(0, 255, 136, 0.3)',
+                                {/* Background animado */}
+                                <motion.div
+                                    variants={{
+                                        hover: {
+                                            scale: 1.05,
+                                            transition: { duration: 0.3 }
                                         },
-                                        transition: 'all 0.3s ease',
-                                        minWidth: { xs: '200px', sm: '220px' },
+                                        tap: {
+                                            scale: 0.95,
+                                            transition: { duration: 0.1 }
+                                        }
+                                    }}
+                                    style={{
+                                        position: 'relative',
+                                        display: 'inline-block',
                                     }}
                                 >
-                                    Entre em Contato
-                                </Button>
-                            </Box>
+                                    {/* Efeito de onda ao passar o mouse */}
+                                    <motion.div
+                                        variants={{
+                                            hover: {
+                                                scale: 1.2,
+                                                opacity: 0,
+                                                transition: {
+                                                    duration: 0.6,
+                                                    ease: "easeOut"
+                                                }
+                                            }
+                                        }}
+                                        style={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            width: '100%',
+                                            height: '100%',
+                                            background: 'linear-gradient(45deg, #00ff88, #00cc66)',
+                                            borderRadius: '50px',
+                                            transform: 'translate(-50%, -50%) scale(0)',
+                                            opacity: 0.3,
+                                            zIndex: 1,
+                                        }}
+                                    />
 
-                            <Box
-                                component={motion.div}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                <Button
-                                    href="#projetos"
-                                    variant="outlined"
-                                    size="large"
-                                    sx={{
-                                        px: 4,
-                                        py: 1.5,
-                                        fontSize: '1.1rem',
-                                        fontWeight: 600,
-                                        borderColor: 'secondary.main',
-                                        color: 'secondary.main',
-                                        '&:hover': {
-                                            borderColor: 'secondary.light',
-                                            color: 'secondary.light',
-                                            backgroundColor: 'rgba(0, 255, 136, 0.1)',
-                                            transform: 'translateY(-2px)',
-                                        },
-                                        transition: 'all 0.3s ease',
-                                        minWidth: { xs: '200px', sm: '220px' },
-                                    }}
-                                >
-                                    Ver Projetos
-                                </Button>
+                                    {/* Botão principal */}
+                                    <Button
+                                        href="#contato"
+                                        variant="contained"
+                                        size="large"
+                                        sx={{
+                                            position: 'relative',
+                                            zIndex: 2,
+                                            px: 4,
+                                            py: 1.5,
+                                            fontSize: '1.1rem',
+                                            fontWeight: 600,
+                                            background: 'transparent',
+                                            border: '2px solid #00ff88',
+                                            color: '#00ff88',
+                                            borderRadius: '50px',
+                                            overflow: 'hidden',
+                                            minWidth: { xs: '200px', sm: '220px' },
+                                            '&::before': {
+                                                content: '""',
+                                                position: 'absolute',
+                                                top: 0,
+                                                left: '-100%',
+                                                width: '100%',
+                                                height: '100%',
+                                                background: 'linear-gradient(45deg, #00ff88, #00cc66)',
+                                                transition: 'left 0.4s ease',
+                                                zIndex: -1,
+                                            },
+                                            '&:hover::before': {
+                                                left: 0,
+                                            },
+                                            '&:hover': {
+                                                background: 'transparent',
+                                                color: '#0a0a0a',
+                                                borderColor: '#00ff88',
+                                                transform: 'translateY(-2px)',
+                                                boxShadow: '0 10px 25px rgba(0, 255, 136, 0.5)', // Sombra mais forte
+                                            },
+                                            transition: 'all 0.4s ease',
+                                        }}
+                                    >
+                                        Quero um orçamento
+                                    </Button>
+                                </motion.div>
                             </Box>
                         </Box>
-
-                        {/* Scroll Indicator
-                        <Box
-                            component={motion.div}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.6, delay: 1.2 }}
-                            sx={{
-                                position: 'absolute',
-                                bottom: { xs: 20, md: 40 },
-                                left: '50%',
-                                transform: 'translateX(-50%)',
-                                display: { xs: 'none', md: 'flex' },
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                color: 'text.secondary',
-                            }}
-                        >
-                            <Typography variant="body2" sx={{ mb: 1, fontSize: '0.8rem', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
-                                
-                            </Typography>
-                            <Box
-                                component={motion.div}
-                                animate={{ y: [0, 10, 0] }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                                sx={{
-                                    width: '2px',
-                                    height: '30px',
-                                    backgroundColor: 'secondary.main',
-                                    borderRadius: '1px',
-                                    boxShadow: '0 0 8px rgba(0, 255, 136, 0.5)',
-                                }}
-                            />
-                        </Box> */}
                     </Box>
                 </motion.div>
             </Container>
