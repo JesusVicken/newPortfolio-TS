@@ -5,7 +5,7 @@ import { Box, Typography, Button, Container, useTheme, useMediaQuery } from "@mu
 const words = [
     "Site institucional.",
     "Loja virtual.",
-    "Displays Inteligentes.",
+    "Sites Inteligentes.",
     "Design Moderno.",
 ];
 
