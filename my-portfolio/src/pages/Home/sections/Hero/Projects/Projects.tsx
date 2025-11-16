@@ -511,7 +511,7 @@ const Projects = () => {
                         {filteredProjects.map((project, index) => (
                             <Grid item xs={12} md={6} lg={4} key={index}>
                                 <Box
-                                    ref={(el) => addToCardsRef(el, index)}
+                                    ref={(el) => addToCardsRef(el as HTMLDivElement | null, index)}
                                     onMouseEnter={() => handleCardHover(index)}
                                     onMouseLeave={() => handleCardLeave(index)}
                                     sx={{ height: '100%' }}
