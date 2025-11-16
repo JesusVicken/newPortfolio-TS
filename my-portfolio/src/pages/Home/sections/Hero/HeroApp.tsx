@@ -204,7 +204,7 @@ export default function HeroApp() {
                                 border: '1px solid rgba(255,255,255,0.1)',
                             }}
                         >
-                            Soluções de <stromg>Sites modernos</stromg>, com impacto real e design inteligente para transformar
+                            Soluções de <strong>Sites modernos</strong>, com impacto real e design inteligente para transformar
                             suas ideias em realidade digital.
                         </Typography>
 
