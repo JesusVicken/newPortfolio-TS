@@ -295,10 +295,10 @@ const About = () => {
                                         Site institucional moderno e responsivo
                                     </Typography>
 
-                                    <PriceTag>R$ 1.497</PriceTag>
+                                    <PriceTag>R$ 2.497</PriceTag>
 
                                     <Typography variant="body2" color="text.secondary" paragraph>
-                                        ou 12x de R$ 149,70
+                                        ou 12x de R$ 249,70
                                     </Typography>
 
                                     <Box sx={{ textAlign: "left", mb: 3 }}>
@@ -370,10 +370,10 @@ const About = () => {
                                         E-commerce completo para vender seus produtos online
                                     </Typography>
 
-                                    <PriceTag>R$ 2.997</PriceTag>
+                                    <PriceTag>R$ 3.997</PriceTag>
 
                                     <Typography variant="body2" color="text.secondary" paragraph>
-                                        ou 12x de R$ 299,70
+                                        ou 12x de R$ 399,70
                                     </Typography>
 
                                     <Box sx={{ textAlign: "left", mb: 3 }}>
