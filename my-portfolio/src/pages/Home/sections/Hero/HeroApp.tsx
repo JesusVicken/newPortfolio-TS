@@ -279,7 +279,9 @@ export default function HeroApp() {
 
                                     {/* Botão principal */}
                                     <Button
-                                        href="#contato"
+                                        href="https://wa.me/5561981778422?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20um%20site."
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         variant="contained"
                                         size="large"
                                         sx={{
@@ -314,7 +316,7 @@ export default function HeroApp() {
                                                 color: '#0a0a0a',
                                                 borderColor: '#00ff88',
                                                 transform: 'translateY(-2px)',
-                                                boxShadow: '0 10px 25px rgba(0, 255, 136, 0.5)', // Sombra mais forte
+                                                boxShadow: '0 10px 25px rgba(0, 255, 136, 0.5)',
                                             },
                                             transition: 'all 0.4s ease',
                                         }}

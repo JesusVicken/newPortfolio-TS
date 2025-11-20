@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Container, Typography, Box, styled, Grid, Card, CardContent, CardActions, Button, Chip, Tabs, Tab, alpha, useTheme, useMediaQuery } from "@mui/material"
+import { Container, Typography, Box, styled, Grid, Card, CardContent, CardActions, Button, Chip, alpha, useTheme, useMediaQuery } from "@mui/material"
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LaunchIcon from '@mui/icons-material/Launch';
 import StarIcon from '@mui/icons-material/Star';
@@ -13,84 +13,21 @@ if (typeof window !== 'undefined') {
 }
 
 const Projects = () => {
-    const [activeFilter, setActiveFilter] = useState('all');
     const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-    const [typedTitle, setTypedTitle] = useState('');
-    const [typedSubtitle, setTypedSubtitle] = useState('');
-    const [currentTypingIndex, setCurrentTypingIndex] = useState(0);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-    // Textos para digitação
-    const typingTexts = [
-        "Sites de Sucesso",
-        "Cases de Impacto Real",
-        "Projetos que vende para sua Empresa",
-        "Soluções Digitais Otimizadas"
-    ];
-
-    const subtitles = [
-        "Projetos reais que geraram +300% de conversão para nossos clientes através de tecnologia moderna e design estratégico",
-        "Cada projeto é uma história de sucesso, com métricas reais e resultados comprovados para negócios de todos os tamanhos",
-        "Desenvolvemos soluções que não apenas impressionam visualmente, mas também geram retorno tangível para seus investimentos",
-        "Da ideia à implementação, criamos experiências digitais que conquistam clientes e superam expectativas"
-    ];
 
     // Refs para animações GSAP
     const sectionRef = useRef(null);
     const titleRef = useRef(null);
     const subtitleRef = useRef(null);
-    const tabsRef = useRef(null);
     const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
     const ctaRef = useRef(null);
 
-    // Efeito de digitação
-    useEffect(() => {
-        const currentTitle = typingTexts[currentTypingIndex];
-        const currentSubtitle = subtitles[currentTypingIndex];
-
-        let titleIndex = 0;
-        let subtitleIndex = 0;
-
-        // Reset para novo texto
-        setTypedTitle('');
-        setTypedSubtitle('');
-
-        const titleInterval = setInterval(() => {
-            if (titleIndex <= currentTitle.length) {
-                setTypedTitle(currentTitle.substring(0, titleIndex));
-                titleIndex++;
-            } else {
-                clearInterval(titleInterval);
-
-                // Inicia digitação do subtítulo após título completo
-                const subtitleInterval = setInterval(() => {
-                    if (subtitleIndex <= currentSubtitle.length) {
-                        setTypedSubtitle(currentSubtitle.substring(0, subtitleIndex));
-                        subtitleIndex++;
-                    } else {
-                        clearInterval(subtitleInterval);
-
-                        // Aguarda e muda para próximo texto
-                        setTimeout(() => {
-                            setCurrentTypingIndex((prev) =>
-                                prev === typingTexts.length - 1 ? 0 : prev + 1
-                            );
-                        }, 3000);
-                    }
-                }, 30); // Velocidade do subtítulo
-            }
-        }, 100); // Velocidade do título
-
-        return () => {
-            clearInterval(titleInterval);
-        };
-    }, [currentTypingIndex]);
-
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Animação do título principal (agora controlado pela digitação)
+            // Animação do título principal
             gsap.fromTo(titleRef.current,
                 { y: 50, opacity: 0 },
                 {
@@ -119,24 +56,6 @@ const Projects = () => {
                     scrollTrigger: {
                         trigger: subtitleRef.current,
                         start: "top 80%",
-                        end: "bottom 20%",
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            );
-
-            // Animação das tabs
-            gsap.fromTo(tabsRef.current,
-                { y: 30, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    delay: 0.6,
-                    ease: "back.out(1.7)",
-                    scrollTrigger: {
-                        trigger: tabsRef.current,
-                        start: "top 85%",
                         end: "bottom 20%",
                         toggleActions: "play none none reverse"
                     }
@@ -209,7 +128,7 @@ const Projects = () => {
         }, sectionRef);
 
         return () => ctx.revert();
-    }, [activeFilter]);
+    }, []);
 
     const StyledProjects = styled("div")(({ theme }) => ({
         backgroundColor: theme.palette.background.default,
@@ -347,15 +266,48 @@ const Projects = () => {
             image: '/carol.jpg',
             category: 'frontend',
             stats: { clients: '60+', conversion: '22%' }
+        },
+        // --- NOVOS PROJETOS ADICIONADOS ---
+        {
+            title: 'CPP Extreme Site',
+            description: 'Landing page moderna para academia com captura de leads, informações de planos e localização.',
+            technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+            githubUrl: 'https://github.com/JesusVicken/cpp-site',
+            liveUrl: 'https://cppextreme.vercel.app/',
+            image: '/cppsite.jpg',
+            category: 'frontend',
+            stats: { clients: '120+', conversion: '32%' } // Adicionado para evitar erro
+        },
+        {
+            title: 'Arruas Tattoo',
+            description: 'Landing page moderna para estúdio de tatuagem e artista tatuador, com galeria e agendamento.',
+            technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+            githubUrl: 'https://github.com/JesusVicken/arruas-tattoo', // Ajustei a URL para padrão
+            liveUrl: 'https://arruastattoo.vercel.app/',
+            image: '/tatto.jpg',
+            category: 'frontend',
+            stats: { clients: '90+', conversion: '28%' } // Adicionado para evitar erro
+        },
+        {
+            title: 'Pet Shop Landing Page',
+            description: 'Landing page moderna para Pet Shop com catálogo de serviços e área de contato.',
+            technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+            githubUrl: 'https://github.com/JesusVicken/pet-shop-lp', // Ajustei a URL para padrão
+            liveUrl: 'https://pet-shop-landingpage.vercel.app/',
+            image: '/pet.jpg',
+            category: 'frontend',
+            stats: { clients: '40+', conversion: '15%' } // Adicionado para evitar erro
         }
     ]
 
-    const filteredProjects = activeFilter === 'all'
-        ? projectsData
-        : projectsData.filter(project => project.category === activeFilter);
-
-    const handleFilterChange = (event: React.SyntheticEvent, newValue: string) => {
-        setActiveFilter(newValue);
+    // Função corrigida para abrir links
+    const handleOpenLink = (url: string, event?: React.MouseEvent) => {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        console.log('🔗 Abrindo link:', url);
+        window.open(url, '_blank', 'noopener,noreferrer');
     };
 
     const addToCardsRef = (el: HTMLDivElement | null, index: number) => {
@@ -390,7 +342,7 @@ const Projects = () => {
     return (
         <StyledProjects id="projects" ref={sectionRef}>
             <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 2 }}>
-                {/* Header Section com Digitação */}
+                {/* Header Section */}
                 <Box sx={{ textAlign: 'center', mb: 8 }}>
                     <Typography
                         ref={titleRef}
@@ -406,24 +358,10 @@ const Projects = () => {
                             fontSize: { xs: '2.5rem', md: '4rem' },
                             letterSpacing: '-0.02em',
                             lineHeight: 1.1,
-                            mb: 3,
-                            minHeight: '120px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
+                            mb: 3
                         }}
                     >
-                        {typedTitle}
-                        <motion.span
-                            animate={{ opacity: [1, 0, 1] }}
-                            transition={{ duration: 1, repeat: Infinity }}
-                            style={{
-                                marginLeft: '4px',
-                                color: '#00ff88'
-                            }}
-                        >
-                            |
-                        </motion.span>
+                        Sites de Sucesso
                     </Typography>
 
                     <Typography
@@ -435,80 +373,17 @@ const Projects = () => {
                             mx: 'auto',
                             lineHeight: 1.6,
                             fontSize: { xs: '1rem', md: '1.2rem' },
-                            fontWeight: 300,
-                            minHeight: '80px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
+                            fontWeight: 300
                         }}
                     >
-                        {typedSubtitle}
+                        Projetos reais que geraram +300% de conversão para nossos clientes através de tecnologia moderna e design estratégico
                     </Typography>
-
-                    {/* Indicador de Progresso */}
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, gap: 1 }}>
-                        {typingTexts.map((_, index) => (
-                            <Box
-                                key={index}
-                                sx={{
-                                    width: '8px',
-                                    height: '8px',
-                                    borderRadius: '50%',
-                                    backgroundColor: currentTypingIndex === index
-                                        ? 'secondary.main'
-                                        : 'rgba(255,255,255,0.2)',
-                                    transition: 'all 0.3s ease'
-                                }}
-                            />
-                        ))}
-                    </Box>
                 </Box>
 
-                {/* Filter Tabs */}
-                <Box ref={tabsRef} sx={{ mb: 8 }}>
-                    <Tabs
-                        value={activeFilter}
-                        onChange={handleFilterChange}
-                        textColor="secondary"
-                        indicatorColor="secondary"
-                        centered
-                        sx={{
-                            '& .MuiTab-root': {
-                                fontSize: '1.1rem',
-                                fontWeight: 700,
-                                py: 2.5,
-                                px: 5,
-                                mx: 1,
-                                borderRadius: '16px',
-                                transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                                background: 'rgba(255,255,255,0.02)',
-                                border: '2px solid transparent',
-                                '&:hover': {
-                                    backgroundColor: 'rgba(0, 255, 136, 0.08)',
-                                    borderColor: 'rgba(0, 255, 136, 0.2)',
-                                    transform: 'translateY(-2px)'
-                                },
-                                '&.Mui-selected': {
-                                    backgroundColor: 'rgba(0, 255, 136, 0.12)',
-                                    borderColor: 'secondary.main',
-                                    boxShadow: '0 8px 32px rgba(0, 255, 136, 0.15)'
-                                }
-                            },
-                            '& .MuiTabs-indicator': {
-                                display: 'none'
-                            }
-                        }}
-                    >
-                        <Tab label="🎯 Todos os Projetos" value="all" />
-                        <Tab label="⚡ Fullstack" value="fullstack" />
-                        <Tab label="🎨 Frontend" value="frontend" />
-                    </Tabs>
-                </Box>
-
-                {/* Projects Grid */}
+                {/* Projects Grid - TODOS OS PROJETOS RENDERIZADOS DE UMA VEZ */}
                 <AnimatePresence mode="wait">
                     <Grid container spacing={4}>
-                        {filteredProjects.map((project, index) => (
+                        {projectsData.map((project, index) => (
                             <Grid item xs={12} md={6} lg={4} key={index}>
                                 <Box
                                     ref={(el) => addToCardsRef(el as HTMLDivElement | null, index)}
@@ -591,51 +466,53 @@ const Projects = () => {
                                             )}
 
                                             {/* Action Buttons */}
-                                            <motion.div
-                                                initial={{ opacity: 0, scale: 0.8 }}
-                                                whileHover={{ opacity: 1, scale: 1 }}
-                                                style={{
-                                                    display: 'flex',
-                                                    gap: '8px',
-                                                    zIndex: 2
-                                                }}
-                                            >
+                                            <Box sx={{ display: 'flex', gap: 1, zIndex: 100, position: 'relative' }}>
                                                 <Button
                                                     size="small"
-                                                    startIcon={<GitHubIcon />}
-                                                    href={project.githubUrl}
-                                                    target="_blank"
+                                                    onClick={(e) => handleOpenLink(project.githubUrl, e)}
                                                     sx={{
                                                         background: 'rgba(0,0,0,0.8)',
                                                         color: 'white',
                                                         minWidth: 'auto',
-                                                        px: 2,
-                                                        borderRadius: '20px',
+                                                        minHeight: 'auto',
+                                                        width: '40px',
+                                                        height: '40px',
+                                                        borderRadius: '50%',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
                                                         '&:hover': {
                                                             background: 'rgba(0,0,0,0.9)',
                                                             transform: 'translateY(-2px)'
                                                         }
                                                     }}
-                                                />
+                                                >
+                                                    <GitHubIcon sx={{ fontSize: '20px' }} />
+                                                </Button>
                                                 <Button
                                                     size="small"
-                                                    startIcon={<LaunchIcon />}
-                                                    href={project.liveUrl}
-                                                    target="_blank"
+                                                    onClick={(e) => handleOpenLink(project.liveUrl, e)}
                                                     sx={{
                                                         background: 'linear-gradient(45deg, #00ff88, #00ccff)',
                                                         color: 'primary.main',
                                                         minWidth: 'auto',
-                                                        px: 2,
-                                                        borderRadius: '20px',
+                                                        minHeight: 'auto',
+                                                        width: '40px',
+                                                        height: '40px',
+                                                        borderRadius: '50%',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
                                                         fontWeight: 'bold',
                                                         '&:hover': {
                                                             transform: 'translateY(-2px)',
                                                             boxShadow: '0 8px 20px rgba(0, 255, 136, 0.3)'
                                                         }
                                                     }}
-                                                />
-                                            </motion.div>
+                                                >
+                                                    <LaunchIcon sx={{ fontSize: '20px' }} />
+                                                </Button>
+                                            </Box>
                                         </Box>
 
                                         {/* Project Content */}
@@ -695,14 +572,19 @@ const Projects = () => {
                                             </Box>
                                         </CardContent>
 
-                                        {/* Project Actions */}
-                                        <CardActions sx={{ p: 4, pt: 0, gap: 2 }}>
+                                        {/* Project Actions - BOTÕES PRINCIPAIS FUNCIONANDO */}
+                                        <CardActions sx={{
+                                            p: 4,
+                                            pt: 0,
+                                            gap: 2,
+                                            position: 'relative',
+                                            zIndex: 2
+                                        }}>
                                             <Button
                                                 fullWidth
                                                 variant="outlined"
                                                 startIcon={<GitHubIcon />}
-                                                href={project.githubUrl}
-                                                target="_blank"
+                                                onClick={(e) => handleOpenLink(project.githubUrl, e)}
                                                 sx={{
                                                     borderColor: 'rgba(255,255,255,0.3)',
                                                     color: 'text.primary',
@@ -722,8 +604,7 @@ const Projects = () => {
                                                 fullWidth
                                                 variant="contained"
                                                 startIcon={<LaunchIcon />}
-                                                href={project.liveUrl}
-                                                target="_blank"
+                                                onClick={(e) => handleOpenLink(project.liveUrl, e)}
                                                 sx={{
                                                     background: 'linear-gradient(135deg, #00ff88, #00ccff)',
                                                     color: 'primary.main',
@@ -813,8 +694,7 @@ const Projects = () => {
                                 <Button
                                     variant="outlined"
                                     size="large"
-                                    href="https://github.com/jesusvicken"
-                                    target="_blank"
+                                    onClick={(e) => handleOpenLink('https://github.com/jesusvicken', e)}
                                     startIcon={<GitHubIcon />}
                                     sx={{
                                         borderColor: 'secondary.main',
