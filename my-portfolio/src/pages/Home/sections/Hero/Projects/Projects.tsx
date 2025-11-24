@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Container, Typography, Box, styled, Grid, Card, CardContent, CardActions, Button, Chip, alpha, useTheme, useMediaQuery } from "@mui/material"
-import GitHubIcon from '@mui/icons-material/GitHub';
 import LaunchIcon from '@mui/icons-material/Launch';
 import StarIcon from '@mui/icons-material/Star';
 import { gsap } from 'gsap';
@@ -209,7 +208,6 @@ const Projects = () => {
             title: 'Constrictor Team',
             description: 'Site oficial da Constrictor Team com design moderno e responsivo, showcasing de produtos e serviços.',
             technologies: ['React', 'TypeScript', 'Material-UI', 'Vite'],
-            githubUrl: 'https://github.com/JesusVicken/constrictorteam',
             liveUrl: 'https://www.constrictorteam.com.br/',
             image: '/constrictor.jpg',
             category: 'frontend',
@@ -220,7 +218,6 @@ const Projects = () => {
             title: 'CPP Extreme Landing Page',
             description: 'Plataforma fitness com sistema de agendamentos, planos de treino e área do aluno integrada.',
             technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-            githubUrl: 'https://github.com/JesusVicken/cppextremebsb',
             liveUrl: 'https://cppextremebsb.vercel.app/',
             image: '/cpp.jpg',
             category: 'fullstack',
@@ -231,17 +228,24 @@ const Projects = () => {
             title: 'Tati Neuro',
             description: 'Site profissional para neuropsicóloga com blog integrado, agendamento online e área de pacientes.',
             technologies: ['Next.js', 'TypeScript', 'Styled Components'],
-            githubUrl: 'https://github.com/jesusvicken/tatineuro',
-            liveUrl: 'https://tatineuro.vercel.app/',
+            liveUrl: 'https://dratatianamiranda.com.br/',
             image: '/tati.jpg',
             category: 'frontend',
             stats: { clients: '80+', conversion: '25%' }
         },
         {
+            title: 'Eu Remo Sorrindo',
+            description: 'Site em construção da Base de Canoa Havaina.',
+            technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+            liveUrl: 'https://euremosorrindo.vercel.app/',
+            image: '/euremo.png',
+            category: 'frontend',
+            stats: { clients: '40+', conversion: '15%' }
+        },
+        {
             title: 'Depireux Fit',
             description: 'Plataforma de coaching fitness com sistema de planos alimentares, acompanhamento e métricas.',
             technologies: ['React', 'Firebase', 'Chart.js', 'PWA'],
-            githubUrl: 'https://github.com/JesusVicken/depireuxfitness',
             liveUrl: 'https://depireuxfit.vercel.app/',
             image: '/cris.jpg',
             category: 'fullstack',
@@ -251,7 +255,6 @@ const Projects = () => {
             title: 'Cubic Esquadrias',
             description: 'Site institucional para empresa de esquadrias em alumínio com catálogo de produtos e orçamentos.',
             technologies: ['React', 'Material-UI', 'Formik', 'EmailJS'],
-            githubUrl: 'https://github.com/jesusvicken/cubicesquadrias',
             liveUrl: 'https://cubicesquadrias.vercel.app/',
             image: '/cubic.JPG',
             category: 'frontend',
@@ -261,52 +264,48 @@ const Projects = () => {
             title: 'Carolina Nantet',
             description: 'Portfolio profissional com design elegante, showcase de trabalhos e formulário de contato integrado.',
             technologies: ['React', 'Framer Motion', 'Styled Components'],
-            githubUrl: 'https://github.com/JesusVicken/nantetfisioterapeuta',
             liveUrl: 'https://carolinanantet.vercel.app/',
             image: '/carol.jpg',
             category: 'frontend',
             stats: { clients: '60+', conversion: '22%' }
         },
-        // --- NOVOS PROJETOS ADICIONADOS ---
         {
             title: 'CPP Extreme Site',
             description: 'Landing page moderna para academia com captura de leads, informações de planos e localização.',
             technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-            githubUrl: 'https://github.com/JesusVicken/cpp-site',
             liveUrl: 'https://cppextreme.vercel.app/',
             image: '/cppsite.jpg',
             category: 'frontend',
-            stats: { clients: '120+', conversion: '32%' } // Adicionado para evitar erro
+            stats: { clients: '120+', conversion: '32%' }
         },
         {
             title: 'Arruas Tattoo',
             description: 'Landing page moderna para estúdio de tatuagem e artista tatuador, com galeria e agendamento.',
             technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-            githubUrl: 'https://github.com/JesusVicken/arruas-tattoo', // Ajustei a URL para padrão
             liveUrl: 'https://arruastattoo.vercel.app/',
             image: '/tatto.jpg',
             category: 'frontend',
-            stats: { clients: '90+', conversion: '28%' } // Adicionado para evitar erro
+            stats: { clients: '90+', conversion: '28%' }
         },
         {
             title: 'Pet Shop Landing Page',
             description: 'Landing page moderna para Pet Shop com catálogo de serviços e área de contato.',
             technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-            githubUrl: 'https://github.com/JesusVicken/pet-shop-lp', // Ajustei a URL para padrão
             liveUrl: 'https://pet-shop-landingpage.vercel.app/',
             image: '/pet.jpg',
             category: 'frontend',
-            stats: { clients: '40+', conversion: '15%' } // Adicionado para evitar erro
+            stats: { clients: '40+', conversion: '15%' }
         }
+
     ]
 
-    // Função corrigida para abrir links
+    // Função para abrir links dos sites
     const handleOpenLink = (url: string, event?: React.MouseEvent) => {
         if (event) {
             event.preventDefault();
             event.stopPropagation();
         }
-        console.log('🔗 Abrindo link:', url);
+        console.log('🔗 Abrindo site:', url);
         window.open(url, '_blank', 'noopener,noreferrer');
     };
 
@@ -380,7 +379,7 @@ const Projects = () => {
                     </Typography>
                 </Box>
 
-                {/* Projects Grid - TODOS OS PROJETOS RENDERIZADOS DE UMA VEZ */}
+                {/* Projects Grid */}
                 <AnimatePresence mode="wait">
                     <Grid container spacing={4}>
                         {projectsData.map((project, index) => (
@@ -465,30 +464,8 @@ const Projects = () => {
                                                 </motion.div>
                                             )}
 
-                                            {/* Action Buttons */}
-                                            <Box sx={{ display: 'flex', gap: 1, zIndex: 100, position: 'relative' }}>
-                                                <Button
-                                                    size="small"
-                                                    onClick={(e) => handleOpenLink(project.githubUrl, e)}
-                                                    sx={{
-                                                        background: 'rgba(0,0,0,0.8)',
-                                                        color: 'white',
-                                                        minWidth: 'auto',
-                                                        minHeight: 'auto',
-                                                        width: '40px',
-                                                        height: '40px',
-                                                        borderRadius: '50%',
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        '&:hover': {
-                                                            background: 'rgba(0,0,0,0.9)',
-                                                            transform: 'translateY(-2px)'
-                                                        }
-                                                    }}
-                                                >
-                                                    <GitHubIcon sx={{ fontSize: '20px' }} />
-                                                </Button>
+                                            {/* Botão único para ver o site */}
+                                            <Box sx={{ zIndex: 100, position: 'relative' }}>
                                                 <Button
                                                     size="small"
                                                     onClick={(e) => handleOpenLink(project.liveUrl, e)}
@@ -572,34 +549,13 @@ const Projects = () => {
                                             </Box>
                                         </CardContent>
 
-                                        {/* Project Actions - BOTÕES PRINCIPAIS FUNCIONANDO */}
+                                        {/* Botão principal para ver o site */}
                                         <CardActions sx={{
                                             p: 4,
                                             pt: 0,
-                                            gap: 2,
                                             position: 'relative',
                                             zIndex: 2
                                         }}>
-                                            <Button
-                                                fullWidth
-                                                variant="outlined"
-                                                startIcon={<GitHubIcon />}
-                                                onClick={(e) => handleOpenLink(project.githubUrl, e)}
-                                                sx={{
-                                                    borderColor: 'rgba(255,255,255,0.3)',
-                                                    color: 'text.primary',
-                                                    fontWeight: 600,
-                                                    py: 1.5,
-                                                    borderRadius: '14px',
-                                                    '&:hover': {
-                                                        borderColor: 'secondary.main',
-                                                        background: 'rgba(0, 255, 136, 0.05)',
-                                                        transform: 'translateY(-2px)'
-                                                    }
-                                                }}
-                                            >
-                                                Código
-                                            </Button>
                                             <Button
                                                 fullWidth
                                                 variant="contained"
@@ -619,7 +575,7 @@ const Projects = () => {
                                                     }
                                                 }}
                                             >
-                                                Ver Site
+                                                Ver Site Online
                                             </Button>
                                         </CardActions>
                                     </ProjectCard>
@@ -688,32 +644,6 @@ const Projects = () => {
                                     }}
                                 >
                                     Iniciar Projeto
-                                </Button>
-                            </motion.div>
-                            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                <Button
-                                    variant="outlined"
-                                    size="large"
-                                    onClick={(e) => handleOpenLink('https://github.com/jesusvicken', e)}
-                                    startIcon={<GitHubIcon />}
-                                    sx={{
-                                        borderColor: 'secondary.main',
-                                        color: 'secondary.main',
-                                        px: 5,
-                                        py: 1.5,
-                                        fontSize: '1.1rem',
-                                        fontWeight: 600,
-                                        borderRadius: '16px',
-                                        borderWidth: '2px',
-                                        '&:hover': {
-                                            background: 'rgba(0, 255, 136, 0.1)',
-                                            borderColor: 'secondary.light',
-                                            borderWidth: '2px',
-                                            transform: 'translateY(-3px)'
-                                        }
-                                    }}
-                                >
-                                    Ver GitHub
                                 </Button>
                             </motion.div>
                         </Box>
