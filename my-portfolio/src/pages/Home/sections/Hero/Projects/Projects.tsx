@@ -264,7 +264,7 @@ const Projects = () => {
             title: 'Carolina Nantet',
             description: 'Portfolio profissional com design elegante, showcase de trabalhos e formulário de contato integrado.',
             technologies: ['React', 'Framer Motion', 'Styled Components'],
-            liveUrl: 'https://carolinanantet.vercel.app/',
+            liveUrl: 'https://carolinanantetfisio.vercel.app/',
             image: '/carol.jpg',
             category: 'frontend',
             stats: { clients: '60+', conversion: '22%' }
